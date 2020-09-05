@@ -1,0 +1,4 @@
+packages:
+  - nvidia-driver
+  - nvidia-settings
+  - cuda

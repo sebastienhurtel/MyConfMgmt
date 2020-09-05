@@ -1,0 +1,19 @@
+- name: Check repo
+  shell: dnf repolist
+  register: result
+#  check_mode: False
+
+- name: Add negativo17 repo
+  shell: dnf config-manager --add-repo 'https://negativo17.org/repos/fedora-nvidia.repo'
+  when:  '"negativo17 - Nvidia" in result.stdout'
+#  check_mode: False
+
+- name: Install nvidia related stuff
+  dnf:
+    enablerepo: 'https://negativo17.org/repos/fedora-nvidia.repo'
+    name: "{{ packages }}"
+    state: latest
+  notify:
+    - rebuild kernel module
+    - rebuild initramfs
+    - should reboot

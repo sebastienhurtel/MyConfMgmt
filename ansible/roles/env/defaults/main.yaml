@@ -1,0 +1,71 @@
+users:
+  - root
+  - sebastien
+
+packages:
+  # environment
+  - alacritty
+  - bat
+  - black
+  - emacs
+  - fd-find
+  - fzf
+  - git
+  - gnome-shell-extension-pop-shell
+  - gnome-tweaks
+  - htop
+  - lm_sensors
+  - ncdu
+  - npm
+  - papirus-icon-theme
+  - pavucontrol
+  - powertop
+  - python3-isort
+  - python3-tox
+  - ripgrep
+  - tmux
+  - transmission
+  - vim
+  - wl-clipboard
+  - zsh
+  # virt stuff
+  - docker-compose
+  - vagrant
+  - virt-manager
+  # mail
+  - isync
+  - maildir-utils
+  # passwords
+  - pass
+  - pwgen
+  # network
+  - avahi
+  - gvfs-nfs
+  - liboping
+  - mtr
+  - wireshark
+  # language
+  - golang
+  # graphics
+  - libva-utils
+  #TLP
+  - tlp
+  - tlp-rdw
+
+flatpaks:
+  - com.discordapp.Discord
+  - com.getferdi.Ferdi
+  - com.jgraph.drawio
+  - com.slack.Slack
+  - org.audacityteam.Audacity
+  - org.darktable.Darktable
+  - org.gimp.GIMP
+  - org.gnome.Boxes
+  - org.gnome.seahorse.Application
+  - us.zoom.Zoom
+
+fonts:
+  - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+  - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+  - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf

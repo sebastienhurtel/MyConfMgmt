@@ -1,0 +1,29 @@
+- hosts: all
+  pre_tasks:
+    - shell: echo $HOME
+      register: home
+      check_mode: False
+    - set_fact:
+        home: "{{ home.stdout }}"
+      check_mode: False
+  tags: always
+
+- name: Set up env
+  hosts: all
+  roles:
+    - env
+  tags: env
+
+- name: Set up dotfiles
+  hosts: all
+  roles:
+    - dotfiles
+  tags: dotfiles
+
+- name: Set up nvidia
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - nvidia
+  tags: nvidia

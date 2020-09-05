@@ -1,0 +1,39 @@
+- name: grant password-less sudo to "sebastien" user
+  become: true
+  copy:
+    content: |
+      sebastien ALL=(ALL:ALL) NOPASSWD: ALL
+    dest: "/etc/sudoers.d/sebastien"
+    mode: "0440"
+
+- name: Install packages
+  become: True
+  include: packages.yaml
+
+- name: Set ZSH as default shell
+  become: true
+  include: zsh.yaml
+  when: "'zsh' not in ansible_env.SHELL"
+
+- name: Check if doom is installed
+  stat:
+    path: ~/.emacs.d/.doom.d
+  register: envvar
+
+- name: Install Doom emacs
+  include: doom.yaml
+  when: envvar.stat.exists == False
+
+- name: Check if install is needed
+  shell: cat /usr/share/X11/xkb/symbols/us
+  register: us_layout
+  check_mode: False
+
+- name: Install qwerty-fr
+  become: true
+  include: qwerty-fr.yaml
+  when: "us_layout.stdout.find('qwerty-fr') == -1"
+
+- name: Install fonts
+  include: fonts.yaml
+  notify: regen-font-cache

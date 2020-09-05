@@ -1,0 +1,19 @@
+- name: Download Meslo fonts
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ home }}/Downloads/{{ item|basename|regex_replace('%20', ' ') }}"
+  loop: "{{ fonts }}"
+
+- name: Install Meslo fonts
+  block:
+  - find:
+      paths: "{{ home }}/Downloads"
+      patterns: '*.ttf'
+      size: -3m
+    register: font_to_install
+  - copy:
+      remote_src: True
+      src: "{{ item.path }}"
+      dest: "{{ home }}/.local/share/fonts/"
+    loop: "{{ font_to_install.files }}"
+    notify: regen-font-cache

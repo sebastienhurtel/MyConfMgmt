@@ -1,0 +1,57 @@
+- name: Check pass-store
+  stat:
+    path: "{{ home }}/.password-store"
+  register: store
+
+- name: Check dotfiles
+  stat:
+    path: "{{ home }}/.dotfiles"
+  register: dotfiles
+
+#TODO
+#- name: ssh config to use my private key to github
+
+#TODO
+#- name: add key to ssh agent?
+
+#TODO
+#- name: add a temporary gitconfig with github id
+
+- name: Add my pass-store
+  shell: |
+    set -e
+    pass init shu
+    pass git init
+    pass git remote add origin git@github.com:sebastienhurtel/pass-store.git
+    pass git pull origin master
+  when: store.stat.exists == False
+
+- name: Clone dotfile repo
+  git:
+    repo: git@github.com:sebastienhurtel/dotfiles.git
+    dest: ~/.dotfiles
+    bare: True
+    key_file: ~/.ssh/id_rsa_shu_github
+  when: dotfiles.stat.exists == False
+
+- name: Init submodules
+  shell: |
+    set -e
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME submodule update --init --recursive
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME submodule foreach git pull origin master
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
+
+- name: Create link to tmux configuration
+  file:
+    src: "{{ home }}/.tmux/.tmux.conf"
+    dest: "{{ home }}/.tmux.conf"
+    state: link
+  when: not ansible_check_mode
+
+- name: Create link to doom configuration
+  file:
+    src: "{{ home }}/.emacs.d/.doom.d"
+    dest: "{{ home }}/.doom.d"
+    state: link
+  when: not ansible_check_mode

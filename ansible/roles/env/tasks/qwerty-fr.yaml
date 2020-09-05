@@ -1,0 +1,54 @@
+# qwerty-fr layout
+- set_fact:
+    qwerty_fr: "qwerty-fr"
+
+- name: Download qwerty-fr layout
+  get_url:
+    url: http://marin.jb.free.fr/qwerty-fr/manual/us_qwerty-fr
+    dest: "{{ home }}/Downloads"
+
+- name: Add qwerty-fr to existing US layout
+  shell: cat "{{ home }}/Downloads/us_qwerty-fr" >> /usr/share/X11/xkb/symbols/us
+
+- name: Check evdev.xml state
+  xml:
+    path: /usr/share/X11/xkb/rules/evdev.xml
+    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant/configItem/name"
+    content: text
+  register: result_evdev
+
+- name: Check base.extras.xml state
+  xml:
+    path: /usr/share/X11/xkb/rules/base.extras.xml
+    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant/configItem/name"
+    content: text
+  register: result_extras
+
+- name: Edit evdev.xml and base.extras.xml
+  xml:
+    path: "{{ item }}"
+    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant[1]"
+    insertbefore: True
+    pretty_print: True
+    backup: True
+    input_type: xml
+    add_children: "        <variant>\n          <configItem>\n            <name>qwerty-fr</name>\n            <description>French (qwerty-fr; US with french ymbols)</description>\n            <languageList>\n              <iso639Id>fra</iso639Id>\n            </languageList>\n          </configItem>\n        </variant>"
+  loop :
+    - /usr/share/X11/xkb/rules/evdev.xml
+    - /usr/share/X11/xkb/rules/base.extras.xml
+
+- name: Edit base.lst
+  lineinfile:
+    path: "{{ item }}"
+    regexp: "^.*qwerty-fr.*$"
+    insertafter: "^! variant$"
+    line: "  qwerty-fr       us: qwerty-fr"
+    backup: True
+  loop:
+    - /usr/share/X11/xkb/rules/base.lst
+    - /usr/share/X11/xkb/rules/evdev.lst
+
+- name: remove file from Downloads
+  file:
+    path: "{{ home }}/Downloads/us_qwerty-fr"
+    state: absent

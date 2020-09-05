@@ -1,0 +1,5 @@
+- name: Set shell to zsh
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  loop: "{{ users }}"

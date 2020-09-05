@@ -1,0 +1,18 @@
+- name: Base packages install
+  dnf:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: system
+
+- name: Install flatpak
+  flatpak:
+    name: "{{ item }}"
+    state: present
+    method: system
+  loop: "{{ flatpaks }}"

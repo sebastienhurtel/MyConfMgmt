@@ -1,0 +1,23 @@
+- name: Pull Doom emacs
+  git:
+    repo: https://github.com/hlissner/doom-emacs
+    depth: 1
+    dest: "{{ home }}/.emacs.d"
+    update: yes
+    clone: yes
+
+- name: Install Doom
+  expect:
+    command: "{{ home }}/.emacs.d/bin/doom install"
+    responses:
+      '.*envvar.*': 'y'
+      '.*all-the-icon.*': 'n'
+    timeout: null
+
+- name: Rebuild doom
+  shell: "{{ home }}/.emacs.d/bin/doom sync && {{ home }}/.emacs.d/bin/doom build"
+
+- name: Remove default configuration
+  file:
+    path: "{{ home }}/.emacs.d/.doom.d"
+    state: absent
