@@ -17,12 +17,15 @@ packages:
   - lm_sensors
   - ncdu
   - npm
+  - p7zip
   - papirus-icon-theme
   - pavucontrol
   - powertop
   - python3-isort
   - python3-tox
+  - qalculate
   - ripgrep
+  - rnnoise
   - tmux
   - transmission
   - vim
