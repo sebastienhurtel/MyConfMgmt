@@ -1,14 +1,20 @@
 #+TITLE: First try to automate my workstation with Ansible
 
-* Run
-Create a python virtual env
-#+begin_src shell
+* Environment
+** Python
+#+begin_example shell
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requitements.txt
-#+end_src
+#+end_example
+** Ansible
+#+begin_example shell
+ansible-galaxy collection install -r requitements.yaml
+#+end_example
 
-To run this playbook
-#+begin_src shell
+* Run
+To run this playbook:
+
+#+begin_example shell
 ansible-playbook -i inventory/all.yaml playbooks/configure.yaml --tags "env,dotfiles" --ask-become-pass --diff --check
-#+end_src
+#+end_example
