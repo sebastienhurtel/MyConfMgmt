@@ -34,6 +34,20 @@
     key_file: ~/.ssh/id_rsa_shu_github
   when: dotfiles.stat.exists == False
 
+- name: Get files in the repo
+  shell: |
+    cd ~/.dotfiles
+    git ls-files
+  register: files
+  check_mode: false
+
+- name: Remove files if exists
+  file:
+    path: "~/{{ item }}"
+    state: absent
+  loop: "{{ files.stdout_lines }}"
+
+
 - name: Init submodules
   shell: |
     set -e
@@ -46,12 +60,5 @@
   file:
     src: "{{ home }}/.tmux/.tmux.conf"
     dest: "{{ home }}/.tmux.conf"
-    state: link
-  when: not ansible_check_mode
-
-- name: Create link to doom configuration
-  file:
-    src: "{{ home }}/.emacs.d/.doom.d"
-    dest: "{{ home }}/.doom.d"
     state: link
   when: not ansible_check_mode
