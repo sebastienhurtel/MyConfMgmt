@@ -4,8 +4,8 @@
 Create a python virtual env
 #+begin_src shell
 python3 -m venv .venv
-pip install -r requitements.txt
 source .venv/bin/activate
+pip install -r requitements.txt
 #+end_src
 
 To run this playbook
