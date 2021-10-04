@@ -17,12 +17,12 @@
 
 - name: Check if doom is installed
   stat:
-    path: ~/.emacs.d/.doom.d
-  register: envvar
+    path: ~/.doom.d
+  register: is_doom
 
 - name: Install Doom emacs
   include: doom.yaml
-  when: envvar.stat.exists == False
+  when: is_doom.stat.exists == False
 
 - name: Check if install is needed
   shell: cat /usr/share/X11/xkb/symbols/us
