@@ -34,12 +34,25 @@
     key_file: ~/.ssh/id_rsa_shu_github
   when: dotfiles.stat.exists == False
 
+- name: Get files in the repo
+  shell: |
+    cd ~/.dotfiles
+    git ls-files
+  register: files
+  check_mode: false
+
+- name: Remove files if exists
+  file:
+    path: "~/{{ item }}"
+    state: absent
+  loop: "{{ files.stdout_lines }}"
+
 - name: Checkout the repos
   shell: |
     set -e
     cd
     git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull origin master
-    git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout --force
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout master --force
 
 - name: Pull submodules
   shell: |
