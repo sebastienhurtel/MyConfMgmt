@@ -33,6 +33,8 @@ packages:
   - zsh
   # virt stuff
   - docker-compose
+  - podman
+  - toolbox
   - vagrant
   - virt-manager
   # mail
@@ -58,6 +60,7 @@ packages:
 flatpaks:
   - com.discordapp.Discord
   - com.getferdi.Ferdi
+  - com.github.wwmm.easyeffects
   - com.jgraph.drawio
   - com.slack.Slack
   - org.audacityteam.Audacity
