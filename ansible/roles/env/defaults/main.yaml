@@ -5,6 +5,7 @@ users:
 packages:
   # environment
   - alacritty
+  - ansible
   - bat
   - black
   - emacs
@@ -31,6 +32,10 @@ packages:
   - vim
   - wl-clipboard
   - zsh
+  # Doom dependencies
+  - cmake
+  - ImageMagick
+  - libvterm
   # virt stuff
   - docker-compose
   - podman
