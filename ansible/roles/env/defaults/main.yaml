@@ -23,6 +23,7 @@ packages:
   - pavucontrol
   - powertop
   - python3-isort
+  - python3-notebook
   - python3-tox
   - qalculate
   - ripgrep
