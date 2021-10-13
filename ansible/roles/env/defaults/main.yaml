@@ -21,6 +21,7 @@ packages:
   - p7zip
   - papirus-icon-theme
   - pavucontrol
+  - pipenv
   - powertop
   - python3-isort
   - python3-notebook
