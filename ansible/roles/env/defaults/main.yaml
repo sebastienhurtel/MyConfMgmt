@@ -7,7 +7,6 @@ packages:
   - alacritty
   - ansible
   - bat
-  - black
   - emacs
   - fd-find
   - fzf
@@ -17,15 +16,14 @@ packages:
   - htop
   - lm_sensors
   - ncdu
+  - nnn
   - npm
   - p7zip
   - papirus-icon-theme
+  - parallel
   - pavucontrol
   - pipenv
   - powertop
-  - python3-isort
-  - python3-notebook
-  - python3-tox
   - qalculate
   - ripgrep
   - rnnoise
@@ -34,9 +32,16 @@ packages:
   - vim
   - wl-clipboard
   - zsh
+  # Python
+  - black
+  - poetry
+  - python3-isort
+  - python3-notebook
+  - python3-tox
   # Doom dependencies
   - cmake
   - ImageMagick
+  - libtool
   - libvterm
   # virt stuff
   - docker-compose
@@ -52,6 +57,7 @@ packages:
   - pwgen
   # network
   - avahi
+  - bgpq3
   - gvfs-nfs
   - liboping
   - mtr
