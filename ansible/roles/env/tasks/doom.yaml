@@ -1,8 +1,3 @@
-- name: Check if doom is installed
-  stat:
-    path: ~/.doom.d
-  register: is_doom
-
 - name: Pull Doom emacs
   git:
     repo: https://github.com/hlissner/doom-emacs
