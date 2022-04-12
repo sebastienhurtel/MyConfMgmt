@@ -28,11 +28,13 @@
   shell: cat /usr/share/X11/xkb/symbols/us
   register: us_layout
   check_mode: False
+  tags: qwerty
 
 - name: Install qwerty-fr
   become: true
   include: qwerty-fr.yaml
   when: "us_layout.stdout.find('qwerty-fr') == -1"
+  tags: qwerty
 
 - name: Install fonts
   include: fonts.yaml
