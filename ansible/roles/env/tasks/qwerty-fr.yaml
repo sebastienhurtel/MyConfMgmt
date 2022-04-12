@@ -1,4 +1,9 @@
 # qwerty-fr layout
+- name: Check if install is needed
+  shell: cat /usr/share/X11/xkb/symbols/us
+  register: us_layout
+  check_mode: False
+
 - set_fact:
     qwerty_fr: "qwerty-fr"
 
