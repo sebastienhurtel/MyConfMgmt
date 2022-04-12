@@ -3,6 +3,9 @@ users:
   - sebastien
 
 packages:
+  # system
+  - rmpconf
+  - remove-retired-packages
   # environment
   - alacritty
   - ansible
