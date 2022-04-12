@@ -54,6 +54,11 @@
     git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull origin master
     git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout master --force
 
+- name: Set .ssh/config wrigth
+  shell: |
+    set -e
+    chmod -R 755 ~/.ssh
+
 - name: Pull submodules
   shell: |
     set -e
