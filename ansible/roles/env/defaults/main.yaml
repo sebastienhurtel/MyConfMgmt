@@ -41,6 +41,9 @@ packages:
   - python3-isort
   - python3-notebook
   - python3-tox
+  - python3-nose
+  - python3-flakes
+  - python3-pytest
   # Doom dependencies
   - cmake
   - ImageMagick
