@@ -49,6 +49,8 @@ packages:
   - ImageMagick
   - libtool
   - libvterm
+  - ShellCheck
+  - shfmt
   # virt stuff
   - docker-compose
   - podman
