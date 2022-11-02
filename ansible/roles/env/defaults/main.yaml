@@ -51,6 +51,7 @@ packages:
   - libvterm
   - ShellCheck
   - shfmt
+  - direnv
   # virt stuff
   - docker-compose
   - podman
