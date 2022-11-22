@@ -71,10 +71,11 @@ packages:
   - liboping
   - mtr
   - wireshark
-  # language
+  # go
   - golang
-  # graphics
-  - libva-utils
+  - gcc-go
+  - golang-bin
+  - golang-x-tools-gopls
   #TLP
   - tlp
   - tlp-rdw

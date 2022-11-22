@@ -1,4 +1,9 @@
 packages:
-  - nvidia-driver
+  - libva-utils
+  - libva-vdpau-driver
+  - linux-firmware
   - nvidia-settings
-  - cuda
+  - nvidia-vaapi-driver
+  - vdpauinfo
+  - xorg-x11-drv-nvidia
+  - xorg-x11-drv-nvidia-cuda
