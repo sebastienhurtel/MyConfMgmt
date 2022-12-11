@@ -91,6 +91,7 @@ flatpaks:
   - org.gimp.GIMP
   - org.gnome.Boxes
   - org.gnome.seahorse.Application
+  - tv.plex.PlexDesktop
   - us.zoom.Zoom
 
 fonts:
