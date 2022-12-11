@@ -19,11 +19,3 @@
   roles:
     - dotfiles
   tags: dotfiles
-
-- name: Set up nvidia
-  hosts: all
-  become: true
-  become_user: root
-  roles:
-    - nvidia
-  tags: nvidia
