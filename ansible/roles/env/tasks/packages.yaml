@@ -1,3 +1,7 @@
+- name: Enable rpmfusion
+  dnf:
+    name: "{{ fusion }}"
+
 - name: Base packages install
   dnf:
     name: "{{ packages }}"

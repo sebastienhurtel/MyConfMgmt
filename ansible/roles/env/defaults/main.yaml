@@ -4,12 +4,13 @@ users:
 
 packages:
   # system
-  - rmpconf
+  - rpmconf
   - remove-retired-packages
   # environment
   - alacritty
   - ansible
   - bat
+  - difftastic
   - emacs
   - fd-find
   - fzf
@@ -42,16 +43,16 @@ packages:
   - python3-notebook
   - python3-tox
   - python3-nose
-  - python3-flakes
+  - python3-flake8
   - python3-pytest
   # Doom dependencies
-  - cmake
   - ImageMagick
+  - ShellCheck
+  - cmake
+  - direnv
   - libtool
   - libvterm
-  - ShellCheck
   - shfmt
-  - direnv
   # virt stuff
   - docker-compose
   - podman
@@ -70,19 +71,26 @@ packages:
   - gvfs-nfs
   - liboping
   - mtr
+  - nmap
   - wireshark
   # go
   - golang
   - gcc-go
   - golang-bin
   - golang-x-tools-gopls
-  #TLP
+  # TLP
   - tlp
   - tlp-rdw
+  # Video hardware acceleration
+  - mesa-vdpau-drivers-freeworld
+  - mesa-va-drivers-freeworld
+
+fusion:
+  - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+  - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
 
 flatpaks:
   - com.discordapp.Discord
-  - com.getferdi.Ferdi
   - com.github.wwmm.easyeffects
   - com.jgraph.drawio
   - com.slack.Slack
@@ -93,6 +101,7 @@ flatpaks:
   - org.gnome.seahorse.Application
   - tv.plex.PlexDesktop
   - us.zoom.Zoom
+  - com.parsecgaming.parsec
 
 fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
