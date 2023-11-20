@@ -1,11 +1,13 @@
 - name: Enable rpmfusion
   dnf:
     name: "{{ fusion }}"
+  become: true
 
 - name: Base packages install
   dnf:
     name: "{{ packages }}"
     state: latest
+  become: true
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:
@@ -13,6 +15,7 @@
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     method: system
+  become: true
 
 - name: Install flatpak
   flatpak:
@@ -20,3 +23,4 @@
     state: present
     method: system
   loop: "{{ flatpaks }}"
+  become: true

@@ -7,12 +7,10 @@
     mode: "0440"
 
 - name: Install packages
-  become: True
-  include: packages.yaml
+  ansible.builtin.include_tasks: packages.yaml
 
 - name: Set ZSH as default shell
-  become: true
-  include: zsh.yaml
+  ansible.builtin.include_tasks: zsh.yaml
   when: "'zsh' not in ansible_env.SHELL"
 
 - name: Check if doom is installed
@@ -21,7 +19,7 @@
   register: is_doom
 
 - name: Install Doom emacs
-  include: doom.yaml
+  ansible.builtin.include_tasks: doom.yaml
   when: is_doom.stat.exists == False
 
 - name: Check if install is needed
@@ -31,11 +29,9 @@
   tags: qwerty
 
 - name: Install qwerty-fr
-  become: true
-  include: qwerty-fr.yaml
+  ansible.builtin.include_tasks: qwerty-fr.yaml
   when: "us_layout.stdout.find('qwerty-fr') == -1"
   tags: qwerty
 
 - name: Install fonts
-  include: fonts.yaml
-  notify: regen-font-cache
+  ansible.builtin.include_tasks: fonts.yaml

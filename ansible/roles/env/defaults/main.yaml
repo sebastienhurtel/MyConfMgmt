@@ -22,6 +22,7 @@ packages:
   - ncdu
   - nnn
   - npm
+  - nvtop
   - p7zip
   - papirus-icon-theme
   - parallel
@@ -82,8 +83,8 @@ packages:
   - tlp
   - tlp-rdw
   # Video hardware acceleration
-  - mesa-vdpau-drivers-freeworld
-  - mesa-va-drivers-freeworld
+  #- mesa-vdpau-drivers-freeworld
+  #- mesa-va-drivers-freeworld
 
 fusion:
   - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
@@ -92,7 +93,7 @@ fusion:
 flatpaks:
   - com.discordapp.Discord
   - com.github.wwmm.easyeffects
-  - com.jgraph.drawio
+    #- com.jgraph.drawio
   - com.slack.Slack
   - org.audacityteam.Audacity
   - org.darktable.Darktable

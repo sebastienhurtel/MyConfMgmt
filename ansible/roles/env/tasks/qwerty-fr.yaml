@@ -1,54 +1,46 @@
 # qwerty-fr layout
 - set_fact:
-    qwerty_fr: "qwerty-fr"
+    evdev_xml: |
+     <?xml version="1.0" encoding="UTF-8"?>
+     <!DOCTYPE xkbConfigRegistry SYSTEM "xkb.dtd">
+     <xkbConfigRegistry version="1.1">
+       <layoutList>
+         <layout>
+           <configItem>
+             <name>us_qwerty-fr</name>
+             <shortDescription>English (US, qwerty-fr)</shortDescription>
+             <description>English (US, qwerty-fr)</description>
+           </configItem>
+         </layout>
+       </layoutList>
+     </xkbConfigRegistry>
+
+- set_fact:
+    evdev_lst: |
+     ! layout
+     us_qwerty-fr  English (US, qwerty-fr)
 
 - name: Download qwerty-fr layout
-  get_url:
-    url: http://marin.jb.free.fr/qwerty-fr/manual/us_qwerty-fr
-    dest: "{{ home }}/Downloads"
+  ansible.builtin.git:
+    repo: git@github.com:qwerty-fr/qwerty-fr.git
+    dest: "{{ home }}/git/"
 
-- name: Add qwerty-fr to existing US layout
-  shell: cat "{{ home }}/Downloads/us_qwerty-fr" >> /usr/share/X11/xkb/symbols/us
-
-- name: Check evdev.xml state
-  xml:
-    path: /usr/share/X11/xkb/rules/evdev.xml
-    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant/configItem/name"
-    content: text
-  register: result_evdev
-
-- name: Check base.extras.xml state
-  xml:
-    path: /usr/share/X11/xkb/rules/base.extras.xml
-    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant/configItem/name"
-    content: text
-  register: result_extras
-
-- name: Edit evdev.xml and base.extras.xml
-  xml:
-    path: "{{ item }}"
-    xpath: "/xkbConfigRegistry/layoutList/layout/variantList/variant[1]"
-    insertbefore: True
-    pretty_print: True
-    backup: True
-    input_type: xml
-    add_children: "        <variant>\n          <configItem>\n            <name>qwerty-fr</name>\n            <description>French (qwerty-fr; US with french ymbols)</description>\n            <languageList>\n              <iso639Id>fra</iso639Id>\n            </languageList>\n          </configItem>\n        </variant>"
-  loop :
-    - /usr/share/X11/xkb/rules/evdev.xml
-    - /usr/share/X11/xkb/rules/base.extras.xml
-
-- name: Edit base.lst
-  lineinfile:
-    path: "{{ item }}"
-    regexp: "^.*qwerty-fr.*$"
-    insertafter: "^! variant$"
-    line: "  qwerty-fr       us: qwerty-fr"
-    backup: True
+- name: Make directories in .config
+  ansible.builtin.file:
+    path: "{{ home }}/.config/xkb/{{ item }}"
+    state: directory
   loop:
-    - /usr/share/X11/xkb/rules/base.lst
-    - /usr/share/X11/xkb/rules/evdev.lst
+    - symbols
+    - rules
 
-- name: remove file from Downloads
-  file:
-    path: "{{ home }}/Downloads/us_qwerty-fr"
-    state: absent
+- name: copy symbols
+  ansible.builtin.copy:
+    src: "{{ home }}/git/qwerty-fr/linux/us_qwerty-fr"
+    dest: "{{ home }}/.config/symbols/"
+
+- ansible.builtin.copy:
+    content: "{{ item }}"
+    dest: "{{ home }}/.config/rules/{{ item | regex_replace('\\_', '\\.') }}"
+  loop:
+    - evdev_xml
+    - evdev_lst
